@@ -16,9 +16,9 @@ def home():
         id_type = request.form.get('ID')
         id_value = request.form.get('id_value')
 
-        if id_type == 'student_id' and id_value:
+        if id_type == 'student_id' and id_value.isdigit():
             return student_data(df, int(id_value))
-        elif id_type == 'course_id' and id_value:
+        elif id_type == 'course_id' and id_value.isdigit():
             return course_data(df, int(id_value))
         else:
             return render_template('error.html')
