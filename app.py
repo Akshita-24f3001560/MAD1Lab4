@@ -35,16 +35,15 @@ def student_data(df, sid):
     return render_template('student_data.html', courses=courses.to_dict(orient='records'), total=total)
 
 def course_data(df, cid):
-    df.columns = df.columns.str.strip()
-    marks = df.loc[df['Course id'] == cid]
-
-    if marks.empty:
+    marks = df.loc[df['Course id'] == cid]   
+    
+    if len(marks) == 0:
         return render_template('error.html')
 
     avg = marks['Marks'].mean()
     max_marks = marks['Marks'].max()
     export_plot(marks)
-    return render_template('course_data.html', marks=marks, avg=avg, max_marks=max_marks)
+    return render_template('course_data.html', avg=avg, max_marks=max_marks)
 
 def export_plot(data):
     freq = data[' Marks'].value_counts().sort_index()
